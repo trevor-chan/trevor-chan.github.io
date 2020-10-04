@@ -1,0 +1,306 @@
+
+body {
+    background: #ffffff;
+font-family: 'Work Sans', sans-serif;
+font-style: normal;
+    font-weight: 300;
+overflow-x: hidden;
+}
+
+/*---------------------------------------
+    General               
+-----------------------------------------*/
+
+html{
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: #555;
+  -webkit-transition: 0.5s;
+  -o-transition: 0.5s;
+  transition: 0.5s;
+  text-decoration: none !important;
+}
+a:hover {
+  color: #333;
+}
+a:, a:active, a:focus {
+  color: #111;
+  outline: none;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+
+/*---------------------------------------
+Typography              
+-----------------------------------------*/
+
+
+h1,h2,h3,h4,h5,h6 {
+font-style: normal;
+font-weight: 300;
+letter-spacing: 0.5px;
+color: #777;
+
+}
+
+h1 {
+font-size: 62px;
+padding-bottom: 14px;
+margin-bottom: 0px;
+}
+
+h2 {
+font-size: 32px;
+line-height: 46px;
+}
+
+h3 {
+font-size: 26px;
+}
+
+h4 {
+font-size: 16px;
+letter-spacing: 2px;
+}
+
+p {
+color: #777;
+font-size: 15px;
+font-weight: 300;
+line-height: 26px;
+letter-spacing: 0.2px;
+}
+
+strong {
+font-weight: 400;
+}
+
+.btn-success:focus {
+background-color: #000;
+border-color: transparent;
+}
+
+
+/*---------------------------------------
+   Portfolio section              
+-----------------------------------------*/
+
+.portfolio-item {
+	-webkit-transition: all 0.5s ease-out;
+	-moz-transition: all 0.5s ease-out;
+	-ms-transition: all 0.5s ease-out;
+	-o-transition: all 0.5s ease-out;
+  transition: all 0.5s ease-out;
+  padding: 0;
+  margin: 0;
+}
+
+.portfolio-item .hover-bg {
+	overflow: hidden;
+  position: relative;
+}
+.hover-bg .hover-text {
+	position: absolute;
+	text-align: center;
+	margin: 0 auto;
+	color: #333;
+	background: rgba(255, 255, 255, 0.75);
+	height: 100%;
+	width: 100%;
+	opacity: 0;
+	transition: all 0.5s;
+}
+.hover-bg .hover-text .overlay-caption {
+	display: table;
+	height: 100%;
+	width: 100%;
+}
+.hover-bg .hover-text .overlay-caption .overlay-content {
+	display: table-cell;
+	vertical-align: middle;
+}
+.hover-bg:hover .hover-text {
+	opacity: 1;
+}
+
+.row {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.imclip {
+  object-fit: cover;
+  width: 100%;
+  height: 300px;
+}
+
+
+/*---------------------------------------
+   Image Carousel        
+-----------------------------------------*/
+
+html, body {
+margin: 0;
+padding: 0;
+}
+
+.pic-ctn {
+width: 100vw;
+height: 200px;
+}
+
+@keyframes display {
+0% {
+transform: translateX(500px);
+opacity: 0;
+}
+10% {
+transform: translateX(0);
+opacity: 1;
+}
+20% {
+transform: translateX(0);
+opacity: 1;
+}
+30% {
+transform: translateX(-500px);
+opacity: 0;
+}
+100% {
+transform: translateX(-500px);
+opacity: 0;
+}
+}
+
+.pic-ctn {
+position: relative;
+width: 78vw;
+height: 300px;
+margin-top: 8vh;
+}
+
+.pic-ctn > img {
+position: absolute;
+top: 0;
+left: calc(50% - 100px);
+opacity: 0;
+animation: display 25s infinite;
+}
+
+img:nth-child(2) {
+animation-delay: 5s;
+}
+img:nth-child(3) {
+animation-delay: 10s;
+}
+img:nth-child(4) {
+animation-delay: 15s;
+}
+img:nth-child(5) {
+animation-delay: 20s;
+}
+
+    
+
+    /*---------------------------------------
+   basic.html formatting  
+-----------------------------------------*/
+
+.centerbasic{ /*added this class for use in basic*/
+    width: 60%;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 45px;
+    margin-bottom: 30px;
+  }
+
+
+/*---------------------------------------
+   navbar formatting  
+-----------------------------------------*/
+
+.container-fluid {
+  position: relative;
+  top: 0;
+  width: 100%;
+  background-color: #eee;
+  opacity: 0.9;
+  z-index: 1;
+}
+
+.navbar{
+  background: transparent;
+  margin-bottom: 0px;
+}
+
+.navbar-brand, .navbar > .container-fluid .navbar-brand {
+  margin-left: 50px;
+}
+
+.navbar-right, .navbar > .container-fluid .navbar-right {
+  margin:0;
+  margin-top: -15px;
+  margin-right: 50px;
+
+}
+
+.navbar-brand {
+  float: left;
+  top: 50%;
+  height: 50px;
+  padding: 15px 15px;
+  font-size: 26px;
+  font-weight: 400;
+}
+
+.navbar-right {
+  float: left;
+  top: 50%;
+  height: 50px;
+  padding: 15px 15px;
+  font-size: 18px; 
+}
+
+.navbar-nav .navbar-right> li > a {
+  padding: 15px;
+  margin-top: -15px;
+}
+
+.navbar-lower{
+  float: left;
+  height: 50px;
+  margin-top: 50px;
+  width: 100%;
+  border: none;
+  padding-left: 50px;
+}
+
+.navbar-nav .navbar-lower> li > a {
+  padding: 15px;
+}
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
+  color: #333;
+  background-color: #e7e7e7;
+}
+
+.navbar-right .navbar-nav > .active > a, .navbar-right .navbar-nav > .active > a:focus, .navbar-right .navbar-nav > .active > a:hover {
+  color: #333;
+  background-color: #e7e7e7;
+}
