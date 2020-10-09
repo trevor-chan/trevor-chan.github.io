@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trevor Chan</title>
+<meta name="description" content="">
+<meta name="author" content="">
+
+
+<!-- Bootstrap -->
+ <!-- Latest compiled and minified CSS -->
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+ <!-- jQuery library -->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ 
+ <!-- Latest compiled JavaScript -->
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> 
+
+<!-- JS smoothstate -->
+<script src="js/jquery.smoothState.min.js"></script>
+<script src="js/js_smooth_transition.js"></script>
+<script type="text/javascript" src="js/SmoothScroll.js"></script> 
+<link rel="stylesheet" href="css/keyframes.css">
+<link rel="stylesheet" href="css/pageTransitions.css">
+
+<!-- Stylesheet -->
+<link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,700" rel="stylesheet">
+<link rel="stylesheet" type="text/css"  href="css/newstyle.css">
+
+</head>
+
+<body>
+<!-- smooth state transition applies -->
+<div class="detail m-scene" id="main">
+
+  <!-- Navigation section -->
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="index.html">trevor chan</a>
+      </div>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="index.html">about</a></li>        
+        <li class="active"><a href="work.html">work</a></li>
+        <li><a href="/pdf/TrevorChanCV.pdf" download>cv</a></li>
+      </ul>
+    </div>
+  </nav> 
+  
+  <div class="m-right-panel m-page scene_element scene_element--fadeinup">
+    <!-- content -->
+
+    <h4 style="margin-top:60px;margin-bottom:-60px;margin-left:30px;"><a href="work.html">&#8592; projects</a></h4>
+
+    <img src="images/projects/nomad_campsite/axon plan.jpg" class="centerbasic">
+    <div class="centercaption">Axonometric plan of a group campsite</div>
+
+    <div class="centerbasic">
+      <h2>
+          Campsite Structure
+      </h2>
+      
+      <p>
+        In the spring of 2020, our senior studio class was tasked with designing a campsite/waystation for the contemporary American nomad. 
+        The facility would be sited on the coast of the Salton Sea in Southern California’s Sonoran Desert. 
+        During the winter months, it would provide a temporary home and accommodations for a subset of people who, by choice or by circumstance, live in their vehicle and travel year-roundto work temporary jobs. 
+        These individuals, predominantly white and retirement-aged, make up a small portion of the roughly 10 million Americans who lost their homes and savings during the 2008 recession.
+      </p>
+      <p>
+        The proposal outlined here seeks to address three essential needs:
+        <ul style="list-style-type:lower-roman;color:#777;">
+            <li style="padding:5px;"><i>Flexibility:</i> nomads and nomadic communities travel vast distances and require multiple stopping points in many locations. 
+                The design of a single waypoint must therefore consider and adapt to the landscape of a specific site, 
+                while an organizational scheme should remain generalizable and applicable to many.</li>
+            <li style="padding:5px;"><i>Scalability:</i> the population of people using this site will change in size over a time period of days, months, and years. 
+                A design must facilitate scaling up and scaling down of a campsite in order to accommodate all residents while minimizing waste.</li>
+            <li style="padding:5px;"><i>Replicability:</i> as housing prices nationwide continue to skyrocket and the social safety net continues to fall short for individuals of all demographics, 
+                the population of American nomads is likely to grow. 
+                The design for one waypoint should look forward to a future where they are ubiquitous.</li>
+        </ul>
+      </p>
+      <p>
+        In order to address these concerns, this project comprises two loosely connected systems operating at distinct scales, united by the theme of universality. 
+        Shown here is the second: an impermanent framing and platform system that interfaces with a car/van and extends the living space of a camper.
+        The first, viewable <a href="campsite_gen.html">[here]</a> is an algorithmic approach to campsite generation that accepts a set of input parameters and produces a proposal for a campground organization in plan. 
+      </p>
+    </div>
+    <img src="images/projects/nomad_campsite/BurningManRenderPNG.png" class="centerbasic">
+    <div class="centercaption">Rendering of bare structure placement in the Black Rock Desert, Nv during the Burning Man Festival</div>
+
+    <div class="centerbasic">
+      <p>
+        Both systems are meant to be deployed in a variety of environmental and social contexts. 
+        And, while these systems complement each other, each is intended to function separately. 
+        In this way, they can be considered ‘blocks,’ fitting in when appropriate to help build a style of temporary housing and community that meets the needs of the 21st-century nomad.
+      </p>
+      <p>
+        Individual campsites are constructed from a set collection of parts according to a loose set of guidelines. 
+        The design of the kit system seeks to emulate the key strengths of the site generating algorithm. 
+        As a building system, it focuses on tailorability to specific environments and occupant needs, ease of assembly, disassembly, and transport, and economic feasibility.
+        The kit is comprised partly of proprietary scaffolding joints and members and partly of custom platform and canopy components. 
+        Existing scaffolding systems are used here for several reasons: scaffolding is durable, designed and proven to withstand many cycles of assembly and disassembly; 
+        it is adaptable, allowing for the combination of parts in many orientations; and it is cheap. 
+        Using these components, the estimated cost per square foot of living space is $9.65, making a full campsite kit for one just under $1000.
+      </p>
+      <p>
+        Parts from this set kit can be combined to form a multitude of unique campsites responding to specific needs of the occupant, as well as to the surrounding environment and topography. 
+        User input could be combined with an assistive algorithm (similar to those currently used for engineering scaffolding structures) allowing for the facilitated assembly of safe, efficient campsites.
+      </p>
+    </div>  
+
+    <img src="images/projects/nomad_campsite/platform_diagram.jpg" class="centerbasic">
+    <div class="centercaption">Platform kit and connections</div>
+    <img src="images/projects/nomad_campsite/scaffold_diagram.jpg" class="centerbasic">
+    <div class="centercaption">Ringlock scaffolding kit and connections</div>
+    <img src="images/projects/nomad_campsite/constructionsectionimage.PNG" class="centerbasic">
+    <div class="centercaption">Construction Section</div>
+    <img src="images/projects/nomad_campsite/collageright.jpg" class="centerbasic">
+    <!-- end content -->
+  </div>
+</div>
+
+</body>
+
+</html>
+
+
+
