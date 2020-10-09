@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trevor Chan</title>
+<meta name="description" content="">
+<meta name="author" content="">
+
+
+<!-- Bootstrap -->
+ <!-- Latest compiled and minified CSS -->
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+ <!-- jQuery library -->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ 
+ <!-- Latest compiled JavaScript -->
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> 
+
+<!-- JS smoothstate -->
+<script src="js/jquery.smoothState.min.js"></script>
+<script src="js/js_smooth_transition.js"></script>
+<script type="text/javascript" src="js/SmoothScroll.js"></script> 
+<link rel="stylesheet" href="css/keyframes.css">
+<link rel="stylesheet" href="css/pageTransitions.css">
+
+<!-- Stylesheet -->
+<link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,700" rel="stylesheet">
+<link rel="stylesheet" type="text/css"  href="css/newstyle.css">
+
+</head>
+
+<body>
+<!-- smooth state transition applies -->
+<div class="detail m-scene" id="main">
+
+  <!-- Navigation section -->
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="index.html">trevor chan</a>
+      </div>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="index.html">about</a></li>        
+        <li class="active"><a href="work.html">work</a></li>
+        <li><a href="/pdf/TrevorChanCV.pdf" download>cv</a></li>
+      </ul>
+    </div>
+  </nav> 
+  
+  <div class="m-right-panel m-page scene_element scene_element--fadeinup">
+    <!-- content -->
+
+    <h4 style="margin-top:60px;margin-bottom:-60px;margin-left:30px;"><a href="work.html">&#8592; projects</a></h4>
+
+    <img src="images/projects/nomad_campsite/EstacionDeltaSite10C.png" class="centerbasic">
+    <div class="centercaption">Campsite proposal for the Estacion Delta, Mexicali Mexico</div>
+
+    <div class="centerbasic">
+      <h2>
+          Campsite Generator
+      </h2>
+      
+      <p>
+        In the spring of 2020, our senior studio class was tasked with designing a campsite/waystation for the contemporary American nomad. 
+        The facility would be sited on the coast of the Salton Sea in Southern California’s Sonoran Desert. 
+        During the winter months, it would provide a temporary home and accommodations for a subset of people who, by choice or by circumstance, live in their vehicle and travel year-roundto work temporary jobs. 
+        These individuals, predominantly white and retirement-aged, make up a small portion of the roughly 10 million Americans who lost their homes and savings during the 2008 recession.
+      </p>
+      <p>
+        The proposal outlined here seeks to address three essential needs:
+        <ul style="list-style-type:lower-roman;color:#777;">
+            <li style="padding:5px;"><i>Flexibility:</i> nomads and nomadic communities travel vast distances and require multiple stopping points in many locations. 
+                The design of a single waypoint must therefore consider and adapt to the landscape of a specific site, 
+                while an organizational scheme should remain generalizable and applicable to many.</li>
+            <li style="padding:5px;"><i>Scalability:</i> the population of people using this site will change in size over a time period of days, months, and years. 
+                A design must facilitate scaling up and scaling down of a campsite in order to accommodate all residents while minimizing waste.</li>
+            <li style="padding:5px;"><i>Replicability:</i> as housing prices nationwide continue to skyrocket and the social safety net continues to fall short for individuals of all demographics, 
+                the population of American nomads is likely to grow. 
+                The design for one waypoint should look forward to a future where they are ubiquitous.</li>
+        </ul>
+      </p>
+      <p>
+        In order to address these concerns, this project comprises two loosely connected systems operating at distinct scales, united by the theme of universality. 
+        Shown here is the first: an algorithmic approach to campsite generation that accepts a set of input parameters and produces a proposal for a campground organization in plan. 
+        The second, viewable <a href="campsite_struct.html">[here]</a> is an impermanent framing and platform system that interfaces with a car/van and extends the living space of a camper.
+      </p>
+    </div>
+    <img src="images/projects/nomad_campsite/BurningManRenderPNG.png" class="centerbasic">
+    <div class="centercaption">Rendering of bare structure placement in the Black Rock Desert, Nv during the Burning Man Festival</div>
+
+    <div class="centerbasic">
+      <p>
+        Both systems are meant to be deployed in a variety of environmental and social contexts. 
+        And, while these systems complement each other, each is intended to function separately. 
+        In this way, they can be considered ‘blocks,’ fitting in when appropriate to help build a style of temporary housing and community that meets the needs of the 21st-century nomad.
+      </p>
+    </div>
+    <div class="centerbasic">
+      <p>
+        An algorithm is used to assist design at the local and regional scale. 
+        The program takes a set of defined input parameters and uses an iterative process to generate the site layout and optimize a set of attributes.
+
+        Parameters that the user can specify include inputting different site topographies as well as varying the number of total campsites, 
+        the number of camps in a segment, and the number of special facilities (guest campsites, bathrooms, artist meeting spaces...) per segment.
+      </p>
+      <p>
+        The algorithm uses an iterative function to repeatedly evaluate and evolve the current campsite network. 
+        At each timestep, nodes consider underlying terrain and the distance to and the direction of their closest n neighbors to calculate a corresponding movement. 
+        In this way, the behavior and form of the campsite mimic those commonly found in nature.
+      </p>
+      <p>
+        To avoid problems of overcrowding, isolation, and placement on unsuitable terrain, 
+        the growth function seeks to establish a near-constant node-node distance and node density within a region, 
+        while minimizing node slope with respect to the underlying site topography.
+
+        After a defined number of iterations, the layout is then segmented. 
+        Several clusters are generated, each encompassing roughly the same number of nodes. 
+        Nodes in each cluster are then assigned to one of a few types of facilities: campsites, guest sites, bathrooms, or gallery/meeting spaces.
+      </p>
+    </div>  
+
+    <img src="images/projects/nomad_campsite/SiteTopographyInput.gif" class="centerbasic">
+    <div class="centercaption">Progression: (i) satellite image, (ii) altitudinal heatmap, (iii) gradient heatmap, (iv) campsite proposal</div>
+    <img src="images/projects/nomad_campsite/LonePineSparselyConnected10C.png" class="centerbasic">
+    <div class="centercaption">Campsite proposal for Lone Pine, CA. Tight groups</div>
+    <img src="images/projects/nomad_campsite/RedHillSite6C.png" class="centerbasic">
+    <div class="centercaption">Campsite proposal for the Salton Sea, CA</div>
+    <!-- end content -->
+  </div>
+</div>
+
+</body>
+
+</html>
+
+
+

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trevor Chan</title>
+<meta name="description" content="">
+<meta name="author" content="">
+
+
+<!-- Bootstrap -->
+ <!-- Latest compiled and minified CSS -->
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+ <!-- jQuery library -->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ 
+ <!-- Latest compiled JavaScript -->
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> 
+
+<!-- JS smoothstate -->
+<script src="js/jquery.smoothState.min.js"></script>
+<script src="js/js_smooth_transition.js"></script>
+<script type="text/javascript" src="js/SmoothScroll.js"></script> 
+<link rel="stylesheet" href="css/keyframes.css">
+<link rel="stylesheet" href="css/pageTransitions.css">
+
+<!-- Stylesheet -->
+<link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,700" rel="stylesheet">
+<link rel="stylesheet" type="text/css"  href="css/newstyle.css">
+
+</head>
+
+<body>
+<!-- smooth state transition applies -->
+<div class="detail m-scene" id="main">
+
+  <!-- Navigation section -->
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="index.html">trevor chan</a>
+      </div>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="index.html">about</a></li>        
+        <li class="active"><a href="work.html">work</a></li>
+        <li><a href="/pdf/TrevorChanCV.pdf" download>cv</a></li>
+      </ul>
+    </div>
+  </nav> 
+  
+  <div class="m-right-panel m-page scene_element scene_element--fadeinup">
+    <!-- content -->
+
+    <h4 style="margin-top:60px;margin-bottom:-60px;margin-left:30px;"><a href="work.html">&#8592; projects</a></h4>
+
+    <img src="images/projects/microfluidics/microfluidicsetup.jpg" class="centerbasic">
+    <div class="centercaption">Schematic of microfluidic chip loading under applied pressure</div>
+
+    <div class="centerbasic">
+      <h2>
+          Microfluidic Designs
+      </h2>
+      
+      <p>
+        The design of the microfluidic chip used in this experiment was based off of a previous microfluidic micropipette device initially conceived of by the Mak Research Lab. 
+        The device is intended to model in vitro conditions experienced by typical cancer cells during in vivo invasion out of the tumor stroma; 
+        in particular, during migration through subnuclear diameter pores in the densely crosslinked extracellular matrix. 
+        Flowing cells into the microfluidic device under a constant applied pressure allows for the observation of the cells’ mechanical deformation in this constriction region. 
+        Flowing cells into the device and equalizing the pressure of the inlet and outlet wells allows for an observation of the cells’ invasive behavior and passive force generation. 
+        After stress-strain dynamics are observed, cells can be flushed into outlet wells and collected for further genetic or mechanical analysis, or for cell culture expansion.
+      </p>
+      <p>
+        While cancer metastasis has long been an area of active study, one open question is how the biomechanics of the cell contribute to cell invasion, 
+        and to what effect differences in mechanics between cells might affect cancer metastasis. 
+        This project investigates the question of why some cancer cells within a bulk tumor population display hyper invasive phenotypes relative to others.
+      </p>
+    </div>
+
+    <img src="images/projects/microfluidics/22_wafer_template.jpg" class="centerbasic">
+    <div class="centercaption">Wafer etching template</div>
+    
+    <div class="centerbasic">
+      <p>
+        Devices are fabricated through a typical two step process of photo-lithography to create a device master template, followed by soft-lithography to create the device. 
+        Fabrication of device masters involved spinning SU8 photoresist on a silicon wafer and selectively exposing regions to UV light using a photomask. 
+        Development of the wafer produces the negative master, onto which silicone elastomer can be poured and cured to create the microfluidic device. 
+        The elastomer is then cut and bonded to a glass slide. 
+        Subsequent autoclave sterilization ensures that cells will not be contaminated during the microfluidic loading step.
+      </p>
+    </div>
+
+    <img src="images/projects/microfluidics/C_0722_loading.gif" class="centerbasic">
+    <div class="centercaption">Video of cell loading process into first constriction region</div>
+    <!-- end content -->
+  </div>
+</div>
+
+</body>
+
+</html>
+
+
