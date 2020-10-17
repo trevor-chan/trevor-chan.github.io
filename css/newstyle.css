@@ -23,7 +23,7 @@ a {
   text-decoration: none !important;
 }
 a:hover {
-  color: #333;
+  color: #222;
 }
 a:, a:active, a:focus {
   color: #111;
@@ -51,9 +51,9 @@ Typography
 
 h1,h2,h3,h4,h5,h6 {
 font-style: normal;
-font-weight: 300;
+font-weight: 400;
 letter-spacing: 0.5px;
-color: #777;
+color: #555;
 
 }
 
@@ -78,7 +78,7 @@ letter-spacing: 2px;
 }
 
 p {
-color: #777;
+color: #555;
 font-size: 15px;
 font-weight: 300;
 line-height: 26px;
@@ -117,7 +117,7 @@ border-color: transparent;
 	position: absolute;
 	text-align: center;
 	margin: 0 auto;
-	color: #333;
+	color: #222;
 	background: rgba(255, 255, 255, 0.75);
 	height: 100%;
 	width: 100%;
@@ -287,7 +287,7 @@ animation-delay: 20s;
   height: 50px;
   padding: 15px 15px;
   font-size: 26px;
-  font-weight: 400;
+  font-weight: 500;
 }
 
 .navbar-right {
@@ -296,6 +296,7 @@ animation-delay: 20s;
   height: 50px;
   padding: 15px 15px;
   font-size: 18px; 
+  font-weight: 400;
 }
 
 .navbar-nav .navbar-right> li > a {
@@ -304,6 +305,8 @@ animation-delay: 20s;
 }
 
 .navbar-lower{
+  font-size: 18px;
+  font-weight: 400;
   float: left;
   height: 50px;
   margin-top: 50px;
@@ -317,11 +320,11 @@ animation-delay: 20s;
 }
 
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
-  color: #333;
+  color: #222;
   background-color: #e7e7e7;
 }
 
 .navbar-right .navbar-nav > .active > a, .navbar-right .navbar-nav > .active > a:focus, .navbar-right .navbar-nav > .active > a:hover {
-  color: #333;
+  color: #222;
   background-color: #e7e7e7;
 }
