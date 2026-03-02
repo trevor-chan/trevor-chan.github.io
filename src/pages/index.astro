@@ -1,0 +1,257 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+
+const filters = [
+  { label: 'WORK',     value: 'all'      },
+  { label: 'RESEARCH', value: 'research' },
+  { label: 'SOFTWARE', value: 'software' },
+  { label: 'HARDWARE', value: 'hardware' },
+  { label: 'DESIGN',   value: 'design'   },
+] as const;
+
+// Fetch all non-draft projects, sorted by index
+const projects = (await getCollection('projects', ({ data }) => !data.draft))
+  .sort((a, b) => a.data.index.localeCompare(b.data.index));
+
+// Target thumbnail height: 2× display height for retina sharpness (display = row-height - 24px = 216px)
+const ROW_IMG_HEIGHT = 432;
+---
+
+<BaseLayout title="Trevor Chan — Work">
+  <Nav />
+
+  <div class="filter-bar">
+    {filters.map((f, i) => (
+      <>
+        <button
+          class="filter-btn"
+          data-filter={f.value}
+          aria-pressed={f.value === 'all' ? 'true' : 'false'}
+        >
+          {f.label}
+        </button>
+        {i < filters.length - 1 && (
+          <span class="divider" aria-hidden="true">/</span>
+        )}
+      </>
+    ))}
+  </div>
+
+  <main>
+    <div class="project-list">
+      {projects.map((project) => {
+        const slug = project.id.split('/')[0];
+        const { index, name, categories, thumbnails, videoThumbnails, videoPositions } = project.data;
+
+        // Build interleaved media list respecting videoPositions, same logic as ProjectLayoutText
+        type RowItem = { kind: 'image'; thumb: typeof thumbnails[0] } | { kind: 'video'; src: string };
+        const rowMedia: RowItem[] = [];
+        if (videoPositions.length === videoThumbnails.length && videoPositions.length > 0) {
+          thumbnails.forEach((thumb, i) => {
+            rowMedia.push({ kind: 'image', thumb });
+            videoThumbnails.forEach((src, v) => {
+              if (videoPositions[v] === i) rowMedia.push({ kind: 'video', src });
+            });
+          });
+          videoThumbnails.forEach((src, v) => {
+            if (videoPositions[v] >= thumbnails.length) rowMedia.push({ kind: 'video', src });
+          });
+        } else {
+          thumbnails.forEach((thumb) => rowMedia.push({ kind: 'image', thumb }));
+          videoThumbnails.forEach((src) => rowMedia.push({ kind: 'video', src }));
+        }
+
+        return (
+          <a
+            class="row"
+            href={`/projects/${slug}`}
+            data-categories={categories.join(',')}
+          >
+            <div class="row-left">
+              <span class="project-index">{index}</span>
+              <span class="project-name">{name}</span>
+            </div>
+            <div class="row-images">
+              {rowMedia.map(({ kind, thumb, src }) => kind === 'image' && thumb ? (
+                <Image
+                  src={thumb}
+                  width={Math.round(thumb.width * (ROW_IMG_HEIGHT / thumb.height))}
+                  height={ROW_IMG_HEIGHT}
+                  alt=""
+                  loading="lazy"
+                  draggable="false"
+                />
+              ) : (
+                <video autoplay muted loop playsinline draggable="false">
+                  <source src={src} type="video/mp4" />
+                </video>
+              ))}
+            </div>
+          </a>
+        );
+      })}
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  /* ── Filter bar ─────────────────────────────────────────── */
+
+  .filter-bar {
+    position: sticky;
+    top: var(--nav-height);
+    z-index: 90;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    height: var(--filter-height);
+    margin-top: var(--nav-height);
+    padding: 0 var(--page-pad);
+    background: var(--color-bg);
+  }
+
+  .filter-bar::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: var(--page-pad);
+    right: var(--page-pad);
+    height: 1px;
+    background: var(--color-line);
+  }
+
+  .filter-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-family: var(--font);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    color: var(--color-text);
+    line-height: 1;
+  }
+
+  .filter-btn[aria-pressed='true'] {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+  }
+
+  .divider {
+    font-size: 10px;
+    user-select: none;
+    line-height: 1;
+  }
+
+  /* ── Project list ───────────────────────────────────────── */
+
+  .project-list {
+    padding: 0 var(--page-pad);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  /* ── Individual row ─────────────────────────────────────── */
+
+  .row {
+    display: flex;
+    align-items: center;
+    height: var(--row-height);
+    border-top: 1px solid var(--color-line);
+    overflow: hidden;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .row[data-hidden='true'] {
+    display: none;
+  }
+
+  /* ── Left text column (fixed width, always visible) ─────── */
+
+  .row-left {
+    width: var(--col-left);
+    flex-shrink: 0;
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+  }
+
+  .project-index {
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    font-weight: 400;
+    min-width: 18px;
+  }
+
+  .project-name {
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    color: var(--color-text);
+  }
+
+  /* ── Images & videos ────────────────────────────────────── */
+
+  .row-images {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: var(--gap);
+    overflow: hidden;
+    height: 100%;
+    padding: 12px 0;
+
+    /* default: hidden, fade out slowly on mouse leave */
+    opacity: 0;
+    transition: opacity 1.5s ease;
+  }
+
+  /* fast fade in on hover */
+  .row:hover .row-images {
+    opacity: 1;
+    transition: opacity 0.2s ease;
+  }
+
+  .row-images img,
+  .row-images video {
+    height: calc(var(--row-height) - 24px);
+    width: auto;
+    display: block;
+    flex-shrink: 0;
+    user-select: none;
+    /* Reserve space before video metadata loads */
+    min-width: 0;
+    aspect-ratio: auto;
+  }
+</style>
+
+<script>
+  const filterBtns = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+  const rows = document.querySelectorAll<HTMLElement>('.row');
+
+  filterBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter!;
+
+      // Update active button
+      filterBtns.forEach((b) => b.setAttribute('aria-pressed', 'false'));
+      btn.setAttribute('aria-pressed', 'true');
+
+      // Show / hide rows
+      rows.forEach((row) => {
+        if (filter === 'all') {
+          row.dataset.hidden = 'false';
+        } else {
+          const cats = row.dataset.categories?.split(',') ?? [];
+          row.dataset.hidden = cats.includes(filter) ? 'false' : 'true';
+        }
+      });
+    });
+  });
+</script>

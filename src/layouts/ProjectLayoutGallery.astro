@@ -1,0 +1,159 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  entry: CollectionEntry<'projects'>;
+}
+
+const { entry } = Astro.props;
+const { index, name, categories, thumbnails, videoThumbnails } = entry.data;
+
+const hasMedia = thumbnails.length > 0 || videoThumbnails.length > 0;
+---
+
+<BaseLayout title={`Trevor Chan — ${name}`}>
+  <Nav />
+
+  <div class="project-header">
+    <div class="project-header-left">
+      <span class="project-index">{index}</span>
+      <span class="project-name">{name}</span>
+    </div>
+    {categories.length > 0 && (
+      <div class="project-categories">
+        {categories.join(' · ')}
+      </div>
+    )}
+  </div>
+
+  <main class="gallery-page">
+
+    <!-- Description (MDX body) -->
+    <div class="description">
+      <slot />
+    </div>
+
+    <!-- Auto-generated media grid from frontmatter thumbnails -->
+    {hasMedia && (
+      <div class="gallery-grid">
+        {thumbnails.map(thumb => (
+          <div class="gallery-item">
+            <Image
+              src={thumb}
+              width={800}
+              alt=""
+              loading="lazy"
+              draggable="false"
+            />
+          </div>
+        ))}
+        {videoThumbnails.map(src => (
+          <div class="gallery-item">
+            <video autoplay muted loop playsinline draggable="false">
+              <source src={src} type="video/mp4" />
+            </video>
+          </div>
+        ))}
+      </div>
+    )}
+
+  </main>
+</BaseLayout>
+
+<style>
+  /* ── Project header (mirrors filter bar styling) ────────── */
+
+  .project-header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--filter-height);
+    margin-top: var(--nav-height);
+    padding: 0 var(--page-pad);
+  }
+
+  .project-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: var(--page-pad);
+    right: var(--page-pad);
+    height: 1px;
+    background: var(--color-line);
+  }
+
+  .project-header-left {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+  }
+
+  .project-index {
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    font-weight: 400;
+  }
+
+  .project-name {
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+  }
+
+  .project-categories {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  /* ── Gallery page ───────────────────────────────────────── */
+
+  .gallery-page {
+    padding: calc(var(--page-pad) * 1.5) var(--page-pad) calc(var(--page-pad) * 3);
+  }
+
+  /* ── Description prose ──────────────────────────────────── */
+
+  .description :global(h2) {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-top: 40px;
+    margin-bottom: 16px;
+  }
+
+  .description :global(h2:first-child) {
+    margin-top: 0;
+  }
+
+  .description :global(p) {
+    font-size: 13px;
+    line-height: 1.75;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    max-width: 560px;
+    margin-bottom: 14px;
+  }
+
+  /* ── Media grid ─────────────────────────────────────────── */
+
+  .gallery-grid {
+    margin-top: calc(var(--page-pad) * 1.5);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--gap);
+  }
+
+  .gallery-item img,
+  .gallery-item video {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+</style>

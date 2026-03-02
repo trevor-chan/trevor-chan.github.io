@@ -1,0 +1,142 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+---
+
+<BaseLayout title="Trevor Chan — About">
+  <Nav />
+
+  <main class="about">
+    <div class="about-grid">
+
+      <div class="about-photo">
+        <img src="/TrevorChanHeadshot.jpg" alt="Trevor Chan" />
+      </div>
+
+      <div class="about-content">
+
+        <div class="bio">
+          <p>
+            Trevor Chan is an engineer and designer from Oakland, CA.
+            He obtained his bachelor's degrees in mechanical engineering and architecture
+            from Yale in May 2020. He is currently a PhD candidate in bioengineering
+            at the University of Pennsylvania.
+          </p>
+          <p>
+            Trevor's projects to-date span a wide range of disciplines.
+            Selected contributions include: planning an elementary school renovation
+            focused on energy sustainability and resilience for the U.S. Department of
+            Energy Solar Decathlon Challenge, collaborating with the Orthopedics
+            Department at the Yale School of Medicine to design a surgical retractor for
+            foot and ankle operations, and employing AI to extract mechanical properties
+            of cancer cell lines from brightfield microscopy images.
+          </p>
+        </div>
+
+        <div class="meta">
+          <div class="meta-group">
+            <span class="meta-label">Contact</span>
+            <a href="mailto:trevorjacksonchan@gmail.com">trevorjacksonchan@gmail.com</a>
+            <a href="https://github.com/trevor-chan" target="_blank" rel="noopener">github.com/trevor-chan</a>
+          </div>
+
+          <div class="meta-group">
+            <a href="/TrevorChanCV.pdf" target="_blank" rel="noopener">Download CV</a>
+          </div>
+
+          <div class="meta-group">
+            <span class="meta-label">Also</span>
+            <a href="https://ericryanchan.github.io/about.html" target="_blank" rel="noopener">Eric Chan</a>
+            <!-- <a href="https://matthew-a-chan.github.io/website/about/about.html" target="_blank" rel="noopener">Matthew Chan</a> -->
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .about {
+    padding: calc(var(--nav-height) + var(--page-pad)) var(--page-pad) calc(var(--page-pad) * 2);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: calc(var(--page-pad) * 2);
+    align-items: start;
+    max-width: 900px;
+  }
+
+  /* ── Photo ──────────────────────────────────────────────── */
+
+  .about-photo img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* ── Content ────────────────────────────────────────────── */
+
+  .about-content {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    max-width: 480px;
+    padding-top: 4px; /* optical alignment with photo top */
+  }
+
+  /* ── Bio ─────────────────────────────────────────────────── */
+
+  .bio {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .bio p {
+    font-size: 12px;
+    line-height: 1.75;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+  }
+
+  /* ── Meta ────────────────────────────────────────────────── */
+
+  .meta {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .meta-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .meta-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    display: block;
+  }
+
+  .meta-group a {
+    font-size: 12px;
+    letter-spacing: 0.01em;
+    font-weight: 400;
+    color: var(--color-text);
+    text-decoration: none;
+    display: block;
+  }
+
+  .meta-group a:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+  }
+</style>

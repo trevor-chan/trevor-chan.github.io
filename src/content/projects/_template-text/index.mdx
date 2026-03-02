@@ -1,0 +1,60 @@
+---
+index: "00"
+name: "Template — Text"
+categories: []
+thumbnails: []
+# Optional captions for thumbnails, matched by position index.
+# Leave out or use "" for images with no caption.
+captions: []
+videoThumbnails: []
+template: "text"
+draft: true
+---
+
+{/* ─────────────────────────────────────────────────────────────
+    TEMPLATE: text / narrative project
+
+    LAYOUT:
+    - Left panel (sticky): the text below (headings + paragraphs only)
+    - Right column (scrollable): images from `thumbnails:` frontmatter
+
+    HOW TO USE:
+    1. Copy this folder, rename it to your project slug (e.g. "my-project")
+    2. Update the frontmatter (index, name, categories, draft: false)
+    3. Add images to this folder and list them under `thumbnails:`
+    4. Write your description below — keep it text only (headings + paragraphs)
+
+    ADDING THUMBNAILS:
+      thumbnails:
+        - "./image-01.jpg"
+        - "./image-02.jpg"
+
+    ADDING CAPTIONS (optional, matched by index to thumbnails):
+      captions:
+        - "Caption for the first image"
+        - ""              # no caption for second image
+        - "Caption for the third image"
+
+    ADDING VIDEO CLIPS (stored in public/projects/<slug>/):
+      videoThumbnails:
+        - "/projects/my-project/clip.mp4"
+
+    NOTE: inline images in this MDX body (![](./image.jpg)) are hidden
+    by the split layout — all images should go in `thumbnails:` above.
+    ───────────────────────────────────────────────────────────── */}
+
+## Overview
+
+One to two sentences summarising the project and its context.
+
+## Background
+
+Motivation, prior work, or relevant context.
+
+## Approach
+
+Methodology, tools, or creative process.
+
+## Results
+
+What was achieved, measured, or produced.

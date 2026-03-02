@@ -1,0 +1,237 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  entry: CollectionEntry<'projects'>;
+}
+
+const { entry } = Astro.props;
+const { index, name, categories, thumbnails, captions, videoThumbnails, videoPositions } = entry.data;
+
+// Pair each thumbnail/video with its optional caption up front
+const imageItems = thumbnails.map((thumb, i) => ({ thumb, caption: captions[i] || '' }));
+const videoItems = videoThumbnails.map((src, i) => ({ src, caption: captions[thumbnails.length + i] || '' }));
+
+// Build a flat ordered media list — interleaved if videoPositions provided, else images then videos
+type AnyItem = { kind: 'image'; thumb: (typeof imageItems)[0]['thumb']; caption: string; eager: boolean } | { kind: 'video'; src: string; caption: string; eager: boolean };
+
+const allMedia: AnyItem[] = [];
+if (videoPositions.length === videoThumbnails.length && videoPositions.length > 0) {
+  imageItems.forEach(({ thumb, caption }, i) => {
+    allMedia.push({ kind: 'image', thumb, caption, eager: allMedia.length === 0 });
+    videoItems.forEach(({ src, caption: vc }, v) => {
+      if (videoPositions[v] === i) allMedia.push({ kind: 'video', src, caption: vc, eager: false });
+    });
+  });
+  videoItems.forEach(({ src, caption }, v) => {
+    if (videoPositions[v] >= imageItems.length) allMedia.push({ kind: 'video', src, caption, eager: false });
+  });
+} else {
+  imageItems.forEach(({ thumb, caption }, i) => allMedia.push({ kind: 'image', thumb, caption, eager: i === 0 }));
+  videoItems.forEach(({ src, caption }) => allMedia.push({ kind: 'video', src, caption, eager: false }));
+}
+---
+
+<BaseLayout title={`Trevor Chan — ${name}`}>
+  <Nav />
+
+  <div class="project-header">
+    <div class="project-header-left">
+      <span class="project-index">{index}</span>
+      <span class="project-name">{name}</span>
+    </div>
+    {categories.length > 0 && (
+      <div class="project-categories">
+        {categories.join(' · ')}
+      </div>
+    )}
+  </div>
+
+  <div class="content-split">
+
+    <!-- Left: sticky text panel (MDX prose body) -->
+    <aside class="text-panel">
+      <slot />
+    </aside>
+
+    <!-- Right: scrollable image column (thumbnails from frontmatter) -->
+    <div class="image-panel">
+      {allMedia.map(({ kind, thumb, src, caption, eager }) => (
+        <div class:list={['image-item', caption ? 'has-caption' : '']}>
+          {kind === 'image' && thumb && (
+            <Image
+              src={thumb}
+              width={1200}
+              alt={caption}
+              loading={eager ? 'eager' : 'lazy'}
+              draggable="false"
+            />
+          )}
+          {kind === 'video' && src && (
+            <video autoplay muted loop playsinline draggable="false">
+              <source src={src} type="video/mp4" />
+            </video>
+          )}
+          {caption && <p class="caption">{caption}</p>}
+        </div>
+      ))}
+    </div>
+
+  </div>
+</BaseLayout>
+
+<style>
+  /* ── Project header — sticky below nav ───────────────────── */
+
+  .project-header {
+    position: sticky;
+    top: var(--nav-height);
+    z-index: 80;
+    background: var(--color-bg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--filter-height);
+    margin-top: var(--nav-height);
+    padding: 0 var(--page-pad);
+  }
+
+  .project-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: var(--page-pad);
+    right: var(--page-pad);
+    height: 1px;
+    background: var(--color-line);
+  }
+
+  .project-header-left {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+  }
+
+  .project-index {
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    font-weight: 400;
+  }
+
+  .project-name {
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+  }
+
+  .project-categories {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  /* ── Split layout ────────────────────────────────────────── */
+
+  .content-split {
+    --split-col: 570px;
+    display: grid;
+    grid-template-columns: var(--split-col) 1fr;
+    align-items: start; /* required for position:sticky to work in a grid child */
+  }
+
+  /* ── Left panel: sticky, clips to viewport height ────────── */
+
+  .text-panel {
+    position: sticky;
+    top: calc(var(--nav-height) + var(--filter-height));
+    height: calc(100vh - var(--nav-height) - var(--filter-height));
+    overflow-y: auto;
+    padding: 40px var(--page-pad);
+    border-right: 1px solid var(--color-line);
+    box-sizing: border-box;
+  }
+
+  /* Headings */
+  .text-panel :global(h2) {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-top: 40px;
+    margin-bottom: 16px;
+  }
+
+  .text-panel :global(h2:first-child) {
+    margin-top: 0;
+  }
+
+  /* Body text */
+  .text-panel :global(p) {
+    font-size: 13px;
+    line-height: 1.75;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    margin-bottom: 14px;
+  }
+
+  /* Links in prose */
+  .text-panel :global(a) {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+  }
+
+  /* Inline images: hidden in text panel — images go in the right column */
+  .text-panel :global(img),
+  .text-panel :global(video) {
+    display: none;
+  }
+
+  /* ── Right panel: natural scroll ─────────────────────────── */
+
+  .image-panel {
+    padding: 40px var(--page-pad) 120px 40px;
+  }
+
+  /* Each image row: image + optional caption side by side */
+  .image-item {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-bottom: 40px;
+    align-items: start;
+    padding: 0 15%;
+  }
+
+  .image-item.has-caption {
+    grid-template-columns: 1fr 240px;
+    padding: 0;
+  }
+
+  .image-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Videos display at natural resolution — don't upscale low-res clips */
+  .image-item video {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+
+  /* Caption: right of the image, small and muted */
+  .caption {
+    font-size: 11px;
+    line-height: 1.65;
+    color: var(--color-muted);
+    padding-top: 2px;
+  }
+</style>
