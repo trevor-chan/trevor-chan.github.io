@@ -5,20 +5,25 @@ import ProjectLayoutText from '../../layouts/ProjectLayoutText.astro';
 export async function getStaticPaths() {
   // Include drafts so template files are accessible as reference pages
   const allProjects = await getCollection('projects', () => true);
+  // Non-draft projects sorted by priority → determines display index
+  const sorted = allProjects
+    .filter((p) => !p.data.draft)
+    .sort((a, b) => b.data.priority - a.data.priority);
+  const indexMap = new Map(sorted.map((p, i) => [p.id, String(i).padStart(2, '0')]));
+
   return allProjects.map((entry) => {
-    // entry.id is "melanoma/index.mdx" — derive URL slug from directory name
     const slug = entry.id.split('/')[0];
     return {
       params: { slug },
-      props: { entry },
+      props: { entry, displayIndex: indexMap.get(entry.id) ?? '—' },
     };
   });
 }
 
-const { entry } = Astro.props;
+const { entry, displayIndex } = Astro.props;
 const { Content } = await render(entry);
 ---
 
-<ProjectLayoutText entry={entry}>
+<ProjectLayoutText entry={entry} displayIndex={displayIndex}>
   <Content />
 </ProjectLayoutText>

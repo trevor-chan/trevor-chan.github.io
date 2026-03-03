@@ -1,0 +1,51 @@
+---
+priority: 77
+name: "LLM Ensembles"
+categories: ["research","software"]
+thumbnails:
+  - "./01_ensemble_size_accuracy.jpg"
+  - "./02_deceptiveness_bewilderment.png"
+  - "./03_EnsembleVoting_q500_a25_4-9digits_cot.png"
+  - "./04_clinical_pre_LVEF-1.jpg"
+captions:
+  - >-
+    Simulated voting scenarios show that for a single question, deceptiveness
+    δ alone dictates the ensemble accuracy as ensemble size approaches
+    infinity. However, the rate of convergence is governed by the
+    bewilderment.
+  - >-
+    Question difficulty is a function of deceptiveness (δ), a question's
+    tendency to elicit a single specious answer, and bewilderment (η), the
+    degree to which it encourages random guessing. (Illustration generated
+    by ChatGPT.)
+  - >-
+    An ensemble of 50 models answers multiplication questions of varying
+    difficulty. Notably, trust improves at high voting thresholds.
+  - >-
+    A single model and ensemble extract salient features from the text of
+    echocardiogram reports. Accuracy, yield, and trust are shown as a
+    function of voting threshold and question distributions for
+    model-extracted left ventricular ejection fraction.
+videoThumbnails: []
+template: "text"
+draft: false
+---
+
+## Overview
+
+Despite huge advances, LLMs still lack convenient and reliable methods to quantify the uncertainty
+in their responses, making them difficult to trust in high-stakes applications. One of the simplest
+approaches to eliciting more accurate answers is to select the mode of many responses, a technique
+known as ensembling. In this work, we expand on typical ensembling approaches by looking at
+ensembles with a variable voting threshold. We introduce a theoretical framework for question
+answering and show that, by permitting ensembles to "abstain" from providing an answer when the
+dominant response falls short of the threshold, it is possible to dramatically increase the
+trustworthiness of the remaining answers. From this framework, we derive theoretical results as well
+as report experimental results on two problem domains: arithmetic problem solving and clinical-note
+question-answering. In both domains, we observe that large gains in answer trustworthiness can be
+achieved using highly restrictive voting ensembles, while incurring relatively modest reductions in
+response yield and accuracy. Due to this quality, voting ensembles may be particularly useful in
+applications - such as healthcare and data annotation - that require a high degree of certainty but
+which may not require that every question receive an automated answer.
+
+[Nair-Kanneganti, A., Chan, T.J., Goldfinger, S., Mackay, E., Anthony, B. and Pouch, A., 2025. Increasing LLM response trustworthiness using voting ensembles. *arXiv preprint arXiv:2510.04048*.](https://arxiv.org/abs/2510.04048)

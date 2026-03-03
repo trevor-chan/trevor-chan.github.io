@@ -1,0 +1,91 @@
+---
+priority: 92
+name: "MUSiK"
+categories: ["research","software"]
+thumbnails:
+  - "./01_multiview_illustrated.jpg"
+  - "./02_breast_phantom.png"
+  - "./03_musik_overview.jpg"
+  - "./05_invivo_experiments.jpg"
+  - "./06_excitation_compensation.jpg"
+  - "./07_invitro_resolution_experiment.jpg"
+imageScales:
+  - 0
+  - 0.6
+captions:
+  - >-
+    Typical diagnostic ultrasound imaging uses a single transducer to both
+    transmit a pulse and receive back-scattered signal. Multi-view ultrasound
+    involves the collection and aggregation of more information into a single
+    image. Data collection can be sequential, involving a series of single
+    transducer images, or it can be synchronous, where multiple transducers
+    transmit and/or receive simultaneously.
+  - ""
+  - ""
+  - >-
+    Five <i>in vivo</i> experiments simulated in MUSiK.
+    <b>(A)</b> Simulated longitudinal kidney scan using <b>(i)</b> a focused
+    transducer and <b>(ii)</b> a plane wave transducer. (a. kidney cortex,
+    b. muscle, c. bone, d. body surface, e. transducer sweep)
+    <b>(B)</b> Simulated 2D transesophageal echocardiography exam from 6
+    standard views of the heart, obtained on 3 windows. (a. blood pool,
+    b. myocardium and vasculature, c. esophagus, d. transducer and sweep)
+    <b>(C)</b> Simulated 3D transesophageal echocardiography exam from 5 3D
+    views of the heart. (a. blood pool, b. myocardium and vasculature,
+    c. esophagus, d. transducer)
+    <b>(D)</b> Simulated 2.5D ultrasound tomography experiment imaging the
+    forearm. (a. tissue density, b. transducer)
+    <b>(E)</b> Simulated 3D ultrasound tomography experiment imaging the
+    breast. (a. muscle, b. mammary lobe, c. mammary duct, d. anechoic tumor,
+    e. body surface, f. transducer)
+  - >-
+    Coherent compounding reconstruction benefits from excitation compensation
+    broadly. <b>(A)</b> Maximum pressure amplitude computed analytically for
+    a single θ = 0 pulse from the 40 mm transducer and the 10 mm transducer.
+    This was used for excitation compensation in the following single- and
+    multi-view experiments. <b>(B–D)</b> Single transducer <b>(B)</b>,
+    multi-view setup with sequential compounding <b>(C)</b>, and multi-view
+    setup with synchronous compounding <b>(D)</b> images, without (left) and
+    with (right) excitation compensation applied during reconstruction.
+    <b>(E)</b> Points denoting scatterers and background, used to measure
+    SNR. <b>(F, G)</b> Lateral PSFs as a function of imaging depth for
+    single-view <b>(F)</b>, sequential multi-view <b>(G, upper)</b>, and
+    synchronous multi-view <b>(G, lower)</b> imaging, without (left) and
+    with (right) excitation compensation. <b>(H)</b> SNR as a function of
+    depth for a single transducer. Shaded regions denote one standard
+    deviation from the mean. <b>(I)</b> SNR as a function of depth for a
+    multi-view setup.
+  - >-
+    A multi-view ultrasound experiment to measure resolution <i>in vitro</i>
+    simulated in MUSiK. <b>(A)</b> The simulated 3-transducer aperture and
+    phantom. <b>(B)</b> Images obtained with a sequential acquisition where
+    each transducer transmits and receives independently (left) and their
+    combined reconstruction (right). <b>(C)</b> Images obtained using a
+    synchronous acquisition where each transducer transmits independently,
+    but all transducers are included in the receive aperture (left), and
+    their combined reconstruction (right). <b>(D, E, F)</b> Inset images for
+    the near field resolution phantom for <b>(D)</b> sequential and
+    <b>(E)</b> synchronous acquisitions, with <b>(F)</b> the lateral and
+    longitudinal point-spread-functions plotted. <b>(G, H, I)</b> Inset
+    images for the far field resolution phantom for <b>(G)</b> sequential
+    and <b>(H)</b> synchronous acquisitions and <b>(I)</b> their lateral and
+    longitudinal point-spread-functions.
+videoThumbnails:
+  - "/projects/musik/04_rotating_hand.mp4"
+videoPositions: [2]
+template: "text"
+draft: false
+---
+
+## Overview
+
+Diagnostic ultrasound has long filled a crucial niche in medical imaging thanks to its portability, affordability, and favorable safety profile. Now, multi-view hardware and deep-learning-based image reconstruction algorithms promise to extend this niche to increasingly sophisticated applications, such as volume rendering and long-term organ monitoring. However, progress on these fronts is impeded by the complexities of ultrasound electronics and by the scarcity of high-fidelity radiofrequency data. Evidently, there is a critical need for tools that enable rapid ultrasound prototyping and generation of synthetic data.
+
+We meet this need with MUSiK, the first open-source ultrasound simulation library expressly designed for multi-view acoustic simulations of realistic anatomy. This library covers the full gamut of image acquisition: building anatomical digital phantoms, defining and positioning diverse transducer types, running simulations, and reconstructing images.
+
+In this paper, we demonstrate several use cases for MUSiK. We simulate *in vitro* multi-view experiments and compare the resolution and contrast of the resulting images. We then perform multiple conventional and experimental *in vivo* imaging tasks, such as 2D scans of the kidney, 2D and 3D echocardiography, 2.5D tomography of large regions, and 3D tomography for lesion detection in soft tissue. Finally, we introduce MUSiK's Bayesian reconstruction framework for multi-view ultrasound and validate an original SNR-enhancing reconstruction algorithm. We anticipate that these unique features will seed new hypotheses and accelerate the overall pace of ultrasound technological development.
+
+The MUSiK library is publicly available at [github.com/norway99/MUSiK](https://github.com/norway99/MUSiK.git).
+
+
+[Chan, T.J., Nair-Kanneganti, A., Anthony, B. and Pouch, A., 2025. MUSiK: An Open Source Simulation Library for 3D Multi-view Ultrasound. *IEEE Transactions on Biomedical Engineering*.](https://ieeexplore.ieee.org/abstract/document/11151215/)

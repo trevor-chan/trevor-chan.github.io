@@ -1,0 +1,56 @@
+---
+priority: 95
+name: "Ultrasound Guidance"
+categories: ["research","software"]
+thumbnails:
+  - "./01_flow_matching.jpg"
+  - "./02_invivo_qual.jpg"
+  - "./03_invivo_quant.jpg"
+  - "./04_guided_sampling.jpg"
+captions:
+  - >-
+    TTE image acquisition can be viewed as a distribution transport problem,
+    where samples from the distribution of random probe placements are
+    transformed into optimal probe placements corresponding to specific
+    canonical views.
+  - >-
+    AP4C (top) and PLAX (bottom) views acquired with model guidance. At the
+    start of sampling, the transducer is placed in a neutral position on the
+    chest wall. The operator then attempts to align the reticle with the
+    target to acquire the selected view.
+  - >-
+    In prospective <i>in vivo</i> evaluations, novice and intermediate
+    operators required significantly less time to acquire images of comparable
+    diagnostic quality.
+  - >-
+    Annealed diffusion autoguidance accelerates convergence to the target
+    view by straightening sampled trajectories. A weighting of 1.0 is
+    identical to no guidance, and higher weightings more heavily emphasize the
+    strong model prediction.
+videoThumbnails: []
+template: "text"
+draft: false
+---
+
+
+## Overview
+
+Point-of-care transthoracic echocardiography (TTE) is a low-cost, non-invasive tool for diagnosing 
+common cardiac diseases, but acquiring and interpreting TTE images requires specialized training, 
+limiting patient access. While extensive prior work focuses on TTE interpretation, the equally 
+critical problem of image acquisition remains largely unaddressed. Here, we introduce a novel 
+method for flow-based ultrasound guidance that enables even untrained operators to acquire 
+diagnostically valuable TTE imaging studies. Specifically, we formulate the task of ultrasound 
+transducer placement as a distribution mapping problem over the space of $SE(3)$ poses. Using flow 
+matching, we train a network to learn a velocity field transporting from the distribution of 
+arbitrary poses to that of canonical view poses. Sampling from this field constitutes a 
+closed-loop process: conditioned on the current image and desired view class, the network predicts 
+a velocity in $se(3)$, which is conveyed to the operator as real-time probe adjustment instructions 
+via a graphical interface. As in generative image models, we find in simulation that classifier-free 
+guidance yields improvements in convergence and pose alignment. Using this approach, we collected 1 
+hour of training data, consisting of ultrasound images and tracked transducer poses, on a single 
+subject and evaluated performance on 3 unseen subjects. In qualitative and quantitative comparisons 
+with 5 novice and intermediate operators, we found that the addition of model-based guidance 
+significantly decreased acquisition time for the 6 most common TTE views. These findings indicate 
+that flow-based guidance models may substantially close the performance gap between novice and 
+trained sonographers, expanding access to point-of-care cardiac imaging in resource-limited settings.

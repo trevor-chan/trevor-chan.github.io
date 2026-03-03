@@ -6,10 +6,11 @@ import type { CollectionEntry } from 'astro:content';
 
 interface Props {
   entry: CollectionEntry<'projects'>;
+  displayIndex: string;
 }
 
-const { entry } = Astro.props;
-const { index, name, categories, thumbnails, videoThumbnails } = entry.data;
+const { entry, displayIndex } = Astro.props;
+const { name, categories, thumbnails, videoThumbnails } = entry.data;
 
 const hasMedia = thumbnails.length > 0 || videoThumbnails.length > 0;
 ---
@@ -19,7 +20,7 @@ const hasMedia = thumbnails.length > 0 || videoThumbnails.length > 0;
 
   <div class="project-header">
     <div class="project-header-left">
-      <span class="project-index">{index}</span>
+      <span class="project-index">{displayIndex}</span>
       <span class="project-name">{name}</span>
     </div>
     {categories.length > 0 && (
@@ -67,12 +68,16 @@ const hasMedia = thumbnails.length > 0 || videoThumbnails.length > 0;
   /* ── Project header (mirrors filter bar styling) ────────── */
 
   .project-header {
-    position: relative;
+    position: fixed;
+    top: var(--nav-total);
+    left: 0;
+    right: 0;
+    z-index: 80;
+    background: var(--color-bg);
     display: flex;
     align-items: center;
     justify-content: space-between;
     height: var(--filter-height);
-    margin-top: var(--nav-height);
     padding: 0 var(--page-pad);
   }
 
@@ -114,6 +119,7 @@ const hasMedia = thumbnails.length > 0 || videoThumbnails.length > 0;
   /* ── Gallery page ───────────────────────────────────────── */
 
   .gallery-page {
+    margin-top: calc(var(--nav-total) + var(--filter-height));
     padding: calc(var(--page-pad) * 1.5) var(--page-pad) calc(var(--page-pad) * 3);
   }
 

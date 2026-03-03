@@ -6,32 +6,33 @@ import type { CollectionEntry } from 'astro:content';
 
 interface Props {
   entry: CollectionEntry<'projects'>;
+  displayIndex: string;
 }
 
-const { entry } = Astro.props;
-const { index, name, categories, thumbnails, captions, videoThumbnails, videoPositions } = entry.data;
+const { entry, displayIndex } = Astro.props;
+const { name, categories, thumbnails, captions, imageScales, videoThumbnails, videoPositions } = entry.data;
 
-// Pair each thumbnail/video with its optional caption up front
-const imageItems = thumbnails.map((thumb, i) => ({ thumb, caption: captions[i] || '' }));
+// Pair each thumbnail/video with its optional caption and scale up front
+const imageItems = thumbnails.map((thumb, i) => ({ thumb, caption: captions[i] || '', scale: imageScales[i] || 0 }));
 const videoItems = videoThumbnails.map((src, i) => ({ src, caption: captions[thumbnails.length + i] || '' }));
 
 // Build a flat ordered media list — interleaved if videoPositions provided, else images then videos
-type AnyItem = { kind: 'image'; thumb: (typeof imageItems)[0]['thumb']; caption: string; eager: boolean } | { kind: 'video'; src: string; caption: string; eager: boolean };
+type AnyItem = { kind: 'image'; thumb: (typeof imageItems)[0]['thumb']; caption: string; scale: number; eager: boolean } | { kind: 'video'; src: string; caption: string; scale: number; eager: boolean };
 
 const allMedia: AnyItem[] = [];
 if (videoPositions.length === videoThumbnails.length && videoPositions.length > 0) {
-  imageItems.forEach(({ thumb, caption }, i) => {
-    allMedia.push({ kind: 'image', thumb, caption, eager: allMedia.length === 0 });
+  imageItems.forEach(({ thumb, caption, scale }, i) => {
+    allMedia.push({ kind: 'image', thumb, caption, scale, eager: allMedia.length === 0 });
     videoItems.forEach(({ src, caption: vc }, v) => {
-      if (videoPositions[v] === i) allMedia.push({ kind: 'video', src, caption: vc, eager: false });
+      if (videoPositions[v] === i) allMedia.push({ kind: 'video', src, caption: vc, scale: 0, eager: false });
     });
   });
   videoItems.forEach(({ src, caption }, v) => {
-    if (videoPositions[v] >= imageItems.length) allMedia.push({ kind: 'video', src, caption, eager: false });
+    if (videoPositions[v] >= imageItems.length) allMedia.push({ kind: 'video', src, caption, scale: 0, eager: false });
   });
 } else {
-  imageItems.forEach(({ thumb, caption }, i) => allMedia.push({ kind: 'image', thumb, caption, eager: i === 0 }));
-  videoItems.forEach(({ src, caption }) => allMedia.push({ kind: 'video', src, caption, eager: false }));
+  imageItems.forEach(({ thumb, caption, scale }, i) => allMedia.push({ kind: 'image', thumb, caption, scale, eager: i === 0 }));
+  videoItems.forEach(({ src, caption }) => allMedia.push({ kind: 'video', src, caption, scale: 0, eager: false }));
 }
 ---
 
@@ -40,7 +41,7 @@ if (videoPositions.length === videoThumbnails.length && videoPositions.length > 
 
   <div class="project-header">
     <div class="project-header-left">
-      <span class="project-index">{index}</span>
+      <span class="project-index">{displayIndex}</span>
       <span class="project-name">{name}</span>
     </div>
     {categories.length > 0 && (
@@ -59,8 +60,8 @@ if (videoPositions.length === videoThumbnails.length && videoPositions.length > 
 
     <!-- Right: scrollable image column (thumbnails from frontmatter) -->
     <div class="image-panel">
-      {allMedia.map(({ kind, thumb, src, caption, eager }) => (
-        <div class:list={['image-item', caption ? 'has-caption' : '']}>
+      {allMedia.map(({ kind, thumb, src, caption, scale, eager }) => (
+        <div class:list={['image-item', caption ? 'has-caption' : '']} style={scale > 0 ? `max-width: ${scale * 100}%; margin-inline: auto;` : undefined}>
           {kind === 'image' && thumb && (
             <Image
               src={thumb}
@@ -75,7 +76,7 @@ if (videoPositions.length === videoThumbnails.length && videoPositions.length > 
               <source src={src} type="video/mp4" />
             </video>
           )}
-          {caption && <p class="caption">{caption}</p>}
+          {caption && <p class="caption" set:html={caption} />}
         </div>
       ))}
     </div>
@@ -87,15 +88,16 @@ if (videoPositions.length === videoThumbnails.length && videoPositions.length > 
   /* ── Project header — sticky below nav ───────────────────── */
 
   .project-header {
-    position: sticky;
-    top: var(--nav-height);
+    position: fixed;
+    top: var(--nav-total);
+    left: 0;
+    right: 0;
     z-index: 80;
     background: var(--color-bg);
     display: flex;
     align-items: center;
     justify-content: space-between;
     height: var(--filter-height);
-    margin-top: var(--nav-height);
     padding: 0 var(--page-pad);
   }
 
@@ -138,6 +140,7 @@ if (videoPositions.length === videoThumbnails.length && videoPositions.length > 
 
   .content-split {
     --split-col: 570px;
+    margin-top: calc(var(--nav-total) + var(--filter-height));
     display: grid;
     grid-template-columns: var(--split-col) 1fr;
     align-items: start; /* required for position:sticky to work in a grid child */
@@ -147,8 +150,8 @@ if (videoPositions.length === videoThumbnails.length && videoPositions.length > 
 
   .text-panel {
     position: sticky;
-    top: calc(var(--nav-height) + var(--filter-height));
-    height: calc(100vh - var(--nav-height) - var(--filter-height));
+    top: calc(var(--nav-total) + var(--filter-height));
+    height: calc(100vh - var(--nav-total) - var(--filter-height));
     overflow-y: auto;
     padding: 40px var(--page-pad);
     border-right: 1px solid var(--color-line);

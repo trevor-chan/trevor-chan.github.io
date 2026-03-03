@@ -1,0 +1,74 @@
+---
+priority: 90
+name: "CT Super-resolution"
+categories: ["research","software"]
+thumbnails:
+  - "./01_fig1.png"
+  - "./02_fig3.png"
+  - "./03_fig4.png"
+  - "./05_fig6.png"
+captions:
+  - >-
+    Method overview. Low-resolution sections from CT scans are upsampled and
+    stacked to construct a detailed three-dimensional image. From this image,
+    microstructural and mechanical characteristics of the trabecular bone are
+    calculated, which can be used to describe a patient's bone health status.
+    BV/TV = trabecular bone volume fraction, TbN = trabecular number,
+    TbSp = trabecular separation, TbTh = trabecular thickness.
+  - >-
+    Sixteen regions of interest (eight femoral head, four neck, four upper
+    shaft) were selected from each scan. The ImageJ library BoneJ was used to
+    quantify four trabecular parameters, and a finite element solver was used
+    to calculate trabecular network stiffness. Bone parameter maps at the
+    bottom of the figure represent the following (from left to right): the
+    strain energy of an axial section across the region, a trabecular
+    thickness heatmap, a trabecular spacing heatmap, and an illustration of
+    trabecular number.
+  - >-
+    A qualitative comparison of several deep learning upsampling methods.
+    Ground truth images and representative reconstructions are shown for the
+    femoral head (upper row), greater trochanter (middle row), and upper shaft
+    (bottom row). Enlarged views depicting detailed trabecular bone illustrate
+    the texture-smoothing behavior of convolutional neural network–based models
+    and the advantages of our method in preserving image sharpness and network
+    connectivity. Scale bar is 1 cm. SRCNN = super-resolution convolutional
+    neural network, SRGAN = super-resolution generative adversarial network,
+    SRResNet = super-resolution ResNet.
+  - >-
+    Mechanical stiffness, calculated by finite element analysis, was compared
+    across five reconstruction methods. There were 32 regions of interest
+    analyzed in femoral heads, 16 in femoral necks, and 16 in femoral shafts.
+    (A) Reconstruction is plotted against ground truth, with the gray line
+    denoting perfect agreement. (B) The corresponding percentage errors are
+    plotted with statistical significance determined by a Friedman test and
+    post hoc Dunnett test, with Bonferroni correction for multiple comparisons.
+    Top and bottom edges of boxes indicate dataset quartiles, horizontal lines
+    the means of the datasets, and whiskers the full range.
+    * = P ≤ .05, ** = P ≤ .01, **** = P ≤ .0001.
+    BV/TV = bone volume over total volume, SRCNN = super-resolution
+    convolutional neural network, SRGAN = super-resolution generative
+    adversarial network, SRResNet = super-resolution ResNet,
+    TbN = trabecular number, TbSp = trabecular spacing,
+    TbTh = trabecular thickness.
+videoThumbnails: []
+template: "text"
+draft: false
+---
+
+## Purpose
+
+To use a diffusion-based deep learning model to recover bone microstructure from low-resolution images of the proximal femur, a common site of traumatic osteoporotic fractures.
+
+## Materials and Methods
+
+Training and testing data in this retrospective study consisted of high-resolution cadaveric micro-CT scans (n = 26), which served as ground truth. The images were downsampled prior to use for model training. The model was used to increase spatial resolution in these low-resolution images threefold, from 0.72 mm to 0.24 mm, sufficient to visualize bone microstructure. Model performance was validated using microstructural metrics and finite element simulation–derived stiffness of trabecular regions. Performance was also evaluated across a handful of image quality assessment metrics. Correlations between model performance and ground truth were assessed using intraclass correlation coefficients (ICCs) and Pearson correlation coefficients.
+
+## Results
+
+Compared with popular deep learning baselines, the proposed model exhibited greater accuracy (mean ICC of proposed model, 0.92 vs ICC of next best method, 0.83) and lower bias (mean difference in means, 3.80% vs 10.00%, respectively) across the physiologic metrics. Two gradient-based image quality metrics strongly correlated with accuracy across structural and mechanical criteria (r > 0.89).
+
+## Conclusion
+
+The proposed method may enable accurate measurements of bone structure and strength with a radiation dose on par with current clinical imaging protocols, improving the viability of clinical CT for assessing bone health.
+
+[Chan, T.J. and Rajapakse, C.S., 2023. A super-resolution diffusion model for recovering bone microstructure from CT images. *Radiology: Artificial Intelligence*, 5(6), p.e220251.](https://pubs.rsna.org/doi/abs/10.1148/ryai.220251)

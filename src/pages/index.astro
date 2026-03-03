@@ -12,9 +12,9 @@ const filters = [
   { label: 'DESIGN',   value: 'design'   },
 ] as const;
 
-// Fetch all non-draft projects, sorted by index
+// Fetch all non-draft projects, sorted by priority (highest first)
 const projects = (await getCollection('projects', ({ data }) => !data.draft))
-  .sort((a, b) => a.data.index.localeCompare(b.data.index));
+  .sort((a, b) => b.data.priority - a.data.priority);
 
 // Target thumbnail height: 2× display height for retina sharpness (display = row-height - 24px = 216px)
 const ROW_IMG_HEIGHT = 432;
@@ -42,9 +42,10 @@ const ROW_IMG_HEIGHT = 432;
 
   <main>
     <div class="project-list">
-      {projects.map((project) => {
+      {projects.map((project, idx) => {
         const slug = project.id.split('/')[0];
-        const { index, name, categories, thumbnails, videoThumbnails, videoPositions } = project.data;
+        const displayIndex = String(idx).padStart(2, '0');
+        const { name, categories, thumbnails, videoThumbnails, videoPositions } = project.data;
 
         // Build interleaved media list respecting videoPositions, same logic as ProjectLayoutText
         type RowItem = { kind: 'image'; thumb: typeof thumbnails[0] } | { kind: 'video'; src: string };
@@ -71,7 +72,7 @@ const ROW_IMG_HEIGHT = 432;
             data-categories={categories.join(',')}
           >
             <div class="row-left">
-              <span class="project-index">{index}</span>
+              <span class="project-index">{displayIndex}</span>
               <span class="project-name">{name}</span>
             </div>
             <div class="row-images">
@@ -101,14 +102,15 @@ const ROW_IMG_HEIGHT = 432;
   /* ── Filter bar ─────────────────────────────────────────── */
 
   .filter-bar {
-    position: sticky;
-    top: var(--nav-height);
+    position: fixed;
+    top: var(--nav-total);
+    left: 0;
+    right: 0;
     z-index: 90;
     display: flex;
     align-items: center;
     gap: 14px;
     height: var(--filter-height);
-    margin-top: var(--nav-height);
     padding: 0 var(--page-pad);
     background: var(--color-bg);
   }
@@ -151,6 +153,7 @@ const ROW_IMG_HEIGHT = 432;
   /* ── Project list ───────────────────────────────────────── */
 
   .project-list {
+    margin-top: calc(var(--nav-total) + var(--filter-height));
     padding: 0 var(--page-pad);
     border-bottom: 1px solid var(--color-line);
   }
@@ -207,15 +210,17 @@ const ROW_IMG_HEIGHT = 432;
     height: 100%;
     padding: 12px 0;
 
-    /* default: hidden, fade out slowly on mouse leave */
-    opacity: 0;
-    transition: opacity 1.5s ease;
+    /* default: faded + grayscale, fade out slowly on mouse leave */
+    opacity: 0.1;
+    filter: grayscale(1);
+    transition: opacity 1.5s ease, filter 1.5s ease;
   }
 
   /* fast fade in on hover */
   .row:hover .row-images {
     opacity: 1;
-    transition: opacity 0.2s ease;
+    filter: none;
+    transition: opacity 0.2s ease, filter 0.2s ease;
   }
 
   .row-images img,

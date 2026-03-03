@@ -1,0 +1,28 @@
+---
+priority: 70
+name: "Volumetric Segmentation"
+categories: ["research","software"]
+thumbnails:
+  - "./01_sam_visualization.png"
+  - "./02_sam_method.png"
+  - "./03_sam_evaluation.png"
+videoThumbnails: []
+template: "text"
+draft: false
+---
+
+## Overview
+
+We introduce SAM3D, a new approach to semi-automatic zero-shot segmentation of 3D images building 
+on the existing Segment Anything Model. We achieve fast and accurate segmentations in 3D images 
+with a four-step strategy involving: user prompting with 3D polylines, volume slicing along multiple 
+axes, slice-wide inference with a pretrained model, and recomposition and refinement in 3D. We 
+evaluated SAM3D performance qualitatively on an array of imaging modalities and anatomical 
+structures and quantify performance for specific structures in abdominal pelvic CT and brain MRI. 
+Notably, our method achieves good performance with zero model training or finetuning, making it 
+particularly useful for tasks with a scarcity of preexisting labeled data. By enabling users to 
+create 3D segmentations of unseen data quickly and with dramatically reduced manual input, these 
+methods have the potential to aid surgical planning and education, diagnostic imaging, and 
+scientific research.
+
+[Chan, T.J., Sahni, A., Fang, Y., Li, J., Luthra, A., Pouch, A. and Rajapakse, C.S., 2024. SAM3D: Zero-Shot Semi-Automatic Segmentation in 3D Medical Images with the Segment Anything Model. arXiv preprint arXiv:2405.06786.](https://arxiv.org/abs/2405.06786)

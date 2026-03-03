@@ -1,0 +1,61 @@
+---
+priority: 65
+name: "MRI Reconstruction"
+categories: ["research","software"]
+thumbnails:
+  - "./01_fig5.png"
+  - "./02_fig1.png"
+  - "./03_fig2.png"
+  - "./04_fig4.png"
+captions:
+  - >-
+    (A) Effect of sampling trajectory optimization, model reconstruction
+    without frequency guidance, and model reconstruction with frequency
+    guidance. For the non-optimized trajectory, we used a single interleave
+    Archimedean spiral with a readout duration of 0.02 s. The optimized
+    trajectory uses a 23 interleave, α = 1.23 sequence with an identical
+    readout duration. (B) Snapshots of the image latent x<sub>t</sub> and
+    the gradient signal ∇x<sub>t</sub> taken during a diffusion sampling
+    process.
+  - >-
+    Example trajectories (A) and the corresponding readout gradients in
+    k<sub>x</sub> and k<sub>y</sub> (B). All trajectories shown cover the
+    frequency space of a 256×256 image and have a readout duration of
+    10.0 ms.
+  - >-
+    Given measurements y<sub>0</sub>, reconstruction follows a modified
+    diffusion sampling process. At each timestep, a noisy latent
+    x<sub>t</sub> is concatenated with a prior p<sub>0</sub> and passed to
+    the denoising model to obtain x̃<sub>t−1</sub>. To enforce consistency
+    with y<sub>0</sub>, we compute a frequency gradient ∇y<sub>t−1</sub>
+    and solve for the image gradient using a modified iterative inverse
+    NUFFT (section 3.3). A weighted sum of x<sub>t−1</sub> and
+    ∇x<sub>t−1</sub> yields the corrected image x<sub>t−1</sub>. This is
+    repeated until t = 0.
+  - >-
+    We performed a grid hyperparameter search over a 2D trajectory space.
+    We fixed readout duration at 0.02 seconds and varied the number of
+    interleaves from 1 to 125 and α from 1 to 4. Based on structural
+    similarity of the model-reconstructed images, we found multiple
+    trajectories that yield improved image quality. In comparison, the naive
+    Archimedean spiral, corresponding to 1 interleave and α = 1, performs
+    very poorly.
+videoThumbnails: []
+template: "text"
+draft: false
+---
+
+## Overview
+
+Deep learning methods for accelerated MRI achieve state-of-the-art results but largely ignore additional speedups
+possible with noncartesian sampling trajectories. To address this gap, we created a generative diffusion
+model-based reconstruction algorithm for multi-coil highly undersampled spiral MRI. This model uses conditioning
+during training as well as frequency-based guidance to ensure consistency between images and measurements.
+Evaluated on retrospective data, we show high quality (structural similarity >0.87) in reconstructed images with
+ultrafast scan times (0.02 seconds for a 2D image). We use this algorithm to identify a set of optimal
+variable-density spiral trajectories and show large improvements in image quality compared to conventional
+reconstruction using the non-uniform fast Fourier transform. By combining efficient spiral sampling trajectories,
+multicoil imaging, and deep learning reconstruction, these methods could enable the extremely high acceleration
+factors needed for real-time 3D imaging.
+
+[Chan, T.J. and Rajapakse, C.S., 2024, May. Learning the domain specific inverse NUFFT for accelerated spiral MRI using diffusion models. In *2024 IEEE International Symposium on Biomedical Imaging (ISBI)* (pp. 1-5). IEEE.](https://ieeexplore.ieee.org/abstract/document/10635304/?casa_token=ZEwa_P44EUwAAAAA:LU7gP5XhrKHev5SBlHSM4edk35Zi5YDBe6fpO_9W0xQFJCKt_e7GT-hMd1Roi7HyjAudDgsWCg)
